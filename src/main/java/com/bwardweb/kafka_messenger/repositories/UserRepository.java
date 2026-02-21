@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
-    Page<User> findByUsernameIgnoreCase(String username, Pageable pageable);
+    User findByUsernameIgnoreCase(String username);
 }
