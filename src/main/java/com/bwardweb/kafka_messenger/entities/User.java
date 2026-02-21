@@ -9,6 +9,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -18,27 +20,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Message {
+public class User {
     @Id
     @UuidGenerator
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
-    private UUID messageId;
-
-    @NotNull
-    private Long sequence;
+    private UUID id;
 
     @NotNull
     @NotBlank
-    @Size(max = 256)
-    @Column(length = 256)
-    private String message;
+    @Size(max = 50)
+    @Column(length = 50)
+    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Builder.Default
+    @ManyToMany
+    @JoinTable(name = "user_chat",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "chat_id"))
+    private Set<Chat> chats = new HashSet<>();
 }

@@ -5,16 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
-
-import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Builder
-public class ChatDTO {
+public class UserDTO {
     private UUID id;
 
     @NotNull
     @NotBlank
-    private String chatName;
+    private String username;
 }
