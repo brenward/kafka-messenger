@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
+    //Page<Chat> findByUserId(UUID user_id, Pageable pageable);
 }

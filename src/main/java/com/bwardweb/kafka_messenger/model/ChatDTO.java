@@ -17,4 +17,6 @@ public class ChatDTO {
     @NotNull
     @NotBlank
     private String chatName;
+
+    private Set<MessageDTO> messages;
 }
