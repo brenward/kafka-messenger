@@ -1,4 +1,8 @@
 package com.bwardweb.kafka_messenger.mappers;
 
-public class MessageMapper {
+import com.bwardweb.kafka_messenger.entities.Message;
+import com.bwardweb.kafka_messenger.model.MessageDTO;
+
+public interface MessageMapper {
+    MessageDTO mapMessageToMessageDTO(Message message);
 }
