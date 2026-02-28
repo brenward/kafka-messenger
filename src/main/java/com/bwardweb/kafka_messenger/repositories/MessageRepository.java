@@ -13,4 +13,7 @@ public interface MessageRepository extends JpaRepository<Message, UUID> {
 
     @Query("select m from Message m where chat.id = ?1 and sequence >= ?2")
     Page<Message> findByChatIdAndSequence(UUID chatId, Long sequence, Pageable pageable);
+
+    @Query("select max(m.sequence) from Message m where chat.id = ?1")
+    Long findMaxSequenceByChatId(UUID chatId);
 }

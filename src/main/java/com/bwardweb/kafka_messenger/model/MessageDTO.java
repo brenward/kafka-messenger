@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
+@ToString
 public class MessageDTO {
     private UUID messageId;
 
