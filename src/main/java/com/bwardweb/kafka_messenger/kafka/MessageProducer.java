@@ -1,4 +1,7 @@
 package com.bwardweb.kafka_messenger.kafka;
 
-public class MessageProducer {
+import com.bwardweb.kafka_messenger.model.MessageDTO;
+
+public interface MessageProducer {
+    boolean sendMessage(MessageDTO message);
 }

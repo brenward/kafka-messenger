@@ -1,5 +1,6 @@
 package com.bwardweb.kafka_messenger.controller;
 
+import com.bwardweb.kafka_messenger.kafka.MessageProducer;
 import com.bwardweb.kafka_messenger.model.MessageDTO;
 import com.bwardweb.kafka_messenger.services.MessageService;
 import org.springframework.data.domain.Page;
@@ -9,13 +10,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-@RestController("/message")
+@RestController()
 public class MessageController {
 
     private final MessageService messageService;
 
-    public MessageController(MessageService messageService) {
+    private final MessageProducer messageProducer;
+
+    public MessageController(MessageService messageService, MessageProducer messageProducer) {
         this.messageService = messageService;
+        this.messageProducer = messageProducer;
     }
 
     //Get Messages for chat
@@ -25,12 +29,15 @@ public class MessageController {
     }
 
     //Post Message to chat
-    @PostMapping()
+    @PostMapping(value= "/message")
     public ResponseEntity createMessage(@RequestBody MessageDTO messageDTO) {
+        //Validate message (chatId exists & user is part of chat)
+
+
         //Call kafka service to put into Kafka
-
-
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        if(messageProducer.sendMessage(messageDTO)){
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
