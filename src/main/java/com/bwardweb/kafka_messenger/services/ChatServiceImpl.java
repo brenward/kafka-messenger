@@ -7,6 +7,7 @@ import com.bwardweb.kafka_messenger.model.ChatDTO;
 import com.bwardweb.kafka_messenger.repositories.ChatRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,8 +24,8 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public List<ChatDTO> getChatsByUser(User user) {
-        if(user.getChats().size() == 0){
-            return null;
+        if(user.getChats().isEmpty()){
+            return new ArrayList<>();
         }
 
         return user.getChats().stream()

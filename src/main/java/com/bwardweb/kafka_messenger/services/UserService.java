@@ -6,4 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public interface UserService {
     User getUserByName(String username);
+
+    UserDTO getUserDTOByName(String username);
 }

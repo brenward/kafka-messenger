@@ -20,4 +20,16 @@ public class UserServiceImpl implements UserService{
     public User getUserByName(String username) {
         return userRepository.findByUsernameIgnoreCase(username);
     }
+
+    @Override
+    public UserDTO getUserDTOByName(String username) {
+        User user = userRepository.findByUsernameIgnoreCase(username);
+
+        if(user != null) {
+            return userMapper.mapUserToUserDTO(
+                    this.getUserByName(username));
+        }
+
+        return null;
+    }
 }
