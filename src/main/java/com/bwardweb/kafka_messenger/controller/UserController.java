@@ -14,6 +14,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity getUser(@PathVariable(required = true) String name) {
         UserDTO userDTO = userService.getUserDTOByName(name);

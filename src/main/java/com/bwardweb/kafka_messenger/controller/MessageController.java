@@ -23,12 +23,14 @@ public class MessageController {
     }
 
     //Get Messages for chat
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/message/list", method = RequestMethod.GET)
     public Page<MessageDTO> getMessagesByChatId(@RequestParam(required = true) String chatId, @RequestParam(required = false) Long sequence) {
         return messageService.getChatMessages(UUID.fromString(chatId),sequence);
     }
 
     //Post Message to chat
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value= "/message")
     public ResponseEntity createMessage(@RequestBody MessageDTO messageDTO) {
         //Validate message (chatId exists & user is part of chat)

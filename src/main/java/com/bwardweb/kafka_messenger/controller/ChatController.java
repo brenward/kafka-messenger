@@ -4,6 +4,7 @@ import com.bwardweb.kafka_messenger.entities.User;
 import com.bwardweb.kafka_messenger.model.ChatDTO;
 import com.bwardweb.kafka_messenger.services.ChatService;
 import com.bwardweb.kafka_messenger.services.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class ChatController {
         this.chatService = chatService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/{username}")
     public List<ChatDTO> getChatsByUserName(@PathVariable String username) {
         User user = userService.getUserByName(username);
