@@ -5,9 +5,12 @@ import com.bwardweb.kafka_messenger.model.ChatDTO;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public interface ChatService {
     List<ChatDTO> getChatsByUser(User user);
 
     ChatDTO getChatByUserCollection(Set<User> users);
+
+    ChatDTO getChatById(UUID uuid);
 }

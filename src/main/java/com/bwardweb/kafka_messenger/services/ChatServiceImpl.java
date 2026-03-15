@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,6 +51,11 @@ public class ChatServiceImpl implements ChatService {
             return null;
         }
         return chatMapper.mapChatToChatDTO(matchingChat.getFirst());
+    }
+
+    @Override
+    public ChatDTO getChatById(UUID uuid) {
+        return chatMapper.mapChatToChatDTO(chatRepository.getReferenceById(uuid));
     }
 
     private boolean chatBelongsToUsers(Chat chat, Set<User> users) {

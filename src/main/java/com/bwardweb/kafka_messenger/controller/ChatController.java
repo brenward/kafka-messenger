@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/chats")
@@ -33,5 +34,11 @@ public class ChatController {
         }
 
         return chatService.getChatsByUser(user);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/chat/{id}")
+    public ChatDTO getChatById(@PathVariable(required = true) String id) {
+        return chatService.getChatById(UUID.fromString(id));
     }
 }
