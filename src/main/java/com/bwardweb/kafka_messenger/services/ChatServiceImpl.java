@@ -4,13 +4,12 @@ import com.bwardweb.kafka_messenger.entities.Chat;
 import com.bwardweb.kafka_messenger.entities.User;
 import com.bwardweb.kafka_messenger.mappers.ChatMapper;
 import com.bwardweb.kafka_messenger.model.ChatDTO;
+import com.bwardweb.kafka_messenger.model.MessageDTO;
 import com.bwardweb.kafka_messenger.repositories.ChatRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,6 +55,22 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public ChatDTO getChatById(UUID uuid) {
         return chatMapper.mapChatToChatDTO(chatRepository.getReferenceById(uuid));
+    }
+
+    @Override
+    public long getMaxSequenceOfMessages(UUID chatId) {
+        ChatDTO chatDTO = this.getChatById(chatId);
+
+        if (chatDTO == null){
+            return -1;
+        }
+
+        AtomicLong maxValue = new AtomicLong(-1L);
+        OptionalLong maxValueOptional = chatDTO.getMessages().stream().mapToLong(MessageDTO::getSequence).max();
+
+        maxValueOptional.ifPresent(maxValue::set);
+
+        return maxValue.longValue();
     }
 
     private boolean chatBelongsToUsers(Chat chat, Set<User> users) {
